@@ -3,7 +3,6 @@ from dash import dcc, html
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
-import os
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
@@ -31,16 +30,18 @@ hormesis_risk = np.piecewise(dose_values, [dose_values < 10, dose_values >= 10],
 # Layout for the app
 app.layout = html.Div([
     html.H1("Understanding Radiation Exposure and Risk", style={'textAlign': 'center'}),
-    
+
     html.H3("Radiation Exposure from Common Sources"),
+    html.P("This chart shows the radiation dose from various common activities and sources."),
     dcc.Graph(
         figure={
             "data": [go.Bar(x=df["Source"], y=df["Dose (mSv)"], marker_color='blue')],
             "layout": go.Layout(title="Radiation Dose Comparison (mSv)", xaxis_title="Source", yaxis_title="Dose (mSv)")
         }
     ),
-    
+
     html.H3("Dose-Response Models: LNT vs. Threshold vs. Hormesis"),
+    html.P("The following graph compares three models of radiation risk assessment: \n            Linear No-Threshold (LNT), which assumes all radiation is harmful; \n            the Threshold model, which assumes there is a safe level of exposure below which no harm occurs; \n            and the Hormesis model, which suggests low doses may be beneficial."),
     dcc.Graph(
         figure={
             "data": [
@@ -51,19 +52,27 @@ app.layout = html.Div([
             "layout": go.Layout(title="Radiation Dose-Response Models", xaxis_title="Radiation Dose (mSv)", yaxis_title="Relative Risk")
         }
     ),
-    
+
     html.H3("Personal Radiation Exposure Calculator"),
     html.Label("Number of flights per year (NYC to LA equivalent):"),
-    dcc.Slider(0, 50, 1, value=5, marks={i: str(i) for i in range(0, 51, 10)}, id='flight-slider'),
+    dcc.Slider(0, 50, 1, value=5, marks={i: str(i) for i in range(0, 51, 10)}, id='flight-slider', tooltip={"placement": "bottom", "always_visible": True}),
     html.Label("Number of chest X-rays per year:"),
-    dcc.Slider(0, 10, 1, value=1, marks={i: str(i) for i in range(0, 11)}, id='xray-slider'),
+    dcc.Slider(0, 10, 1, value=1, marks={i: str(i) for i in range(0, 11)}, id='xray-slider', tooltip={"placement": "bottom", "always_visible": True}),
     html.Div(id='total-dose-output', style={'fontSize': 20, 'marginTop': 20}),
-    
+
     html.H3("Key Takeaways and References"),
-    html.P("1. Most people receive around 3 mSv of background radiation annually."),
-    html.P("2. The LNT model assumes all radiation is harmful, but other models suggest low doses may be harmless or beneficial."),
-    html.P("3. Understanding radiation exposure helps dispel myths and unnecessary fear."),
-    html.P("References: BEIR VII Report, NCRP Publications, ICRP Reports."),
+    html.Ul([
+        html.Li("Most people receive around 3 mSv of background radiation annually."),
+        html.Li("The LNT model assumes all radiation is harmful, but other models suggest low doses may be harmless or beneficial."),
+        html.Li("Understanding radiation exposure helps dispel myths and unnecessary fear."),
+    ]),
+    html.P("References: "),
+    html.Ul([
+        html.Li("BEIR VII Report"),
+        html.Li("NCRP Publications"),
+        html.Li("ICRP Reports"),
+    ]),
+    html.Footer("Created by [Your Name]. Data sourced from NCRP and ICRP publications.", style={"textAlign": "center", "marginTop": 40})
 ])
 
 @app.callback(
@@ -74,8 +83,7 @@ def update_dose(flights, xrays):
     total_dose = (flights * 0.04) + (xrays * 0.1)
     return f"Your estimated annual radiation dose from selected activities: {total_dose:.2f} mSv"
 
-# Update to listen on Render's port
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8050))
-    app.run_server(debug=True, host="0.0.0.0", port=port)
+    app.run_server(debug=True, host='0.0.0.0', port=8080)
+
 
