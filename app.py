@@ -3,6 +3,7 @@ from dash import dcc, html
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
+import os
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
@@ -73,5 +74,8 @@ def update_dose(flights, xrays):
     total_dose = (flights * 0.04) + (xrays * 0.1)
     return f"Your estimated annual radiation dose from selected activities: {total_dose:.2f} mSv"
 
+# Update to listen on Render's port
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    port = int(os.environ.get("PORT", 8050))
+    app.run_server(debug=True, host="0.0.0.0", port=port)
+
