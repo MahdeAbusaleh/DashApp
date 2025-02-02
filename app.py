@@ -31,6 +31,7 @@ hormesis_risk = np.piecewise(dose_values, [dose_values < 10, dose_values >= 10],
 # Layout for the app
 app.layout = html.Div([
     html.H1("Understanding Radiation Exposure and Risk", style={'textAlign': 'center'}),
+    html.H5("Created by Mahde Abusaleh", style={'textAlign': 'center', 'marginBottom': 20, 'color': 'gray'}),
 
     # Navigation Bar
     html.Div([
@@ -98,6 +99,17 @@ app.layout = html.Div([
         ]),
     ]),
 
+    # References Section
+    html.Div(id='references', children=[
+        html.H3("References"),
+        html.Ul([
+            html.Li("BEIR VII Report (Biological Effects of Ionizing Radiation)."),
+            html.Li("National Council on Radiation Protection and Measurements (NCRP) Publications."),
+            html.Li("International Commission on Radiological Protection (ICRP) Reports."),
+            html.Li("Health Physics Society Fact Sheets."),
+        ]),
+    ]),
+
     # Conclusion Section
     html.Div(id='conclusion', children=[
         html.H3("Conclusion"),
@@ -120,6 +132,7 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 8050))
     app.run_server(debug=True, host="0.0.0.0", port=port)
+
 
 
 
