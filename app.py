@@ -72,7 +72,7 @@ app.layout = html.Div([
         html.Li("NCRP Publications"),
         html.Li("ICRP Reports"),
     ]),
-    html.Footer("Created by [Your Name]. Data sourced from NCRP and ICRP publications.", style={"textAlign": "center", "marginTop": 40})
+    html.Footer("Created by Mahde Abusaleh. Data sourced from NCRP and ICRP publications.", style={"textAlign": "center", "marginTop": 40})
 ])
 
 @app.callback(
