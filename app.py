@@ -88,16 +88,70 @@ app.layout = html.Div([
         html.Div(id='total-dose-output', style={'fontSize': 20, 'marginTop': 20}),
     ]),
 
-    # FAQ Section
-    html.Div(id='faq', children=[
-        html.H3("Frequently Asked Questions"),
-        html.Ul([
-            html.Li("What is a millisievert (mSv)? - A unit used to measure radiation dose."),
-            html.Li("Is background radiation harmful? - Background radiation is natural and generally "
-                    "considered safe at normal levels."),
-            html.Li("What is the LNT model? - It assumes any radiation exposure increases risk."),
-        ]),
+  # FAQ Section
+html.Div(id='faq', children=[
+    html.H3("Frequently Asked Questions (FAQ)"),
+    
+    html.Details([
+        html.Summary("What is a millisievert (mSv)?"),
+        html.P("A millisievert (mSv) is a unit used to measure radiation dose and assess potential health risks from exposure.")
     ]),
+    
+    html.Details([
+        html.Summary("Is background radiation harmful?"),
+        html.P("Background radiation is naturally occurring and typically not harmful at normal exposure levels. "
+               "It comes from sources like cosmic rays and the Earth's crust.")
+    ]),
+    
+    html.Details([
+        html.Summary("What is the LNT model?"),
+        html.P("The Linear No-Threshold (LNT) model assumes that all radiation exposure, no matter how small, "
+               "increases the risk of cancer and other health effects.")
+    ]),
+
+    html.Details([
+        html.Summary("How much radiation is considered dangerous?"),
+        html.P("Acute exposure above 1,000 mSv (1 Sv) can cause radiation sickness, while prolonged exposure "
+               "above 100 mSv may increase cancer risk. However, small doses from medical imaging or flights "
+               "are generally not dangerous.")
+    ]),
+
+    html.Details([
+        html.Summary("Does flying frequently increase radiation exposure?"),
+        html.P("Yes, but the exposure is minimal. A round-trip flight from NYC to LA results in about 0.08 mSv of exposure, "
+               "which is much lower than an annual background dose (3 mSv).")
+    ]),
+
+    html.Details([
+        html.Summary("Is radiation from medical imaging safe?"),
+        html.P("Medical imaging, such as X-rays and CT scans, involves low radiation doses that are carefully controlled. "
+               "The benefits usually outweigh the risks when performed by medical professionals.")
+    ]),
+
+    html.Details([
+        html.Summary("What is the difference between ionizing and non-ionizing radiation?"),
+        html.P("Ionizing radiation (e.g., X-rays, gamma rays) can remove electrons from atoms, potentially causing damage to cells. "
+               "Non-ionizing radiation (e.g., radio waves, microwaves) does not have enough energy to ionize atoms and is generally safer.")
+    ]),
+
+    html.Details([
+        html.Summary("What is radiation hormesis?"),
+        html.P("Radiation hormesis is the hypothesis that low levels of radiation exposure may have beneficial effects, "
+               "such as stimulating cellular repair mechanisms. This idea is debated and not widely accepted in radiation safety.")
+    ]),
+
+    html.Details([
+        html.Summary("Where can I find reliable information on radiation?"),
+        html.P("Reliable sources include the Health Physics Society, International Commission on Radiological Protection (ICRP), "
+               "National Council on Radiation Protection and Measurements (NCRP), and BEIR VII reports.")
+    ]),
+
+    html.Details([
+        html.Summary("Does radiation exposure always cause cancer?"),
+        html.P("Not necessarily. While high doses of radiation can increase cancer risk, small doses from background radiation, "
+               "medical imaging, or air travel are unlikely to cause harm.")
+    ]),
+]),
 
     # References Section
     html.Div(id='references', children=[
