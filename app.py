@@ -33,14 +33,29 @@ app.layout = html.Div([
     html.H1("Understanding Radiation Exposure and Risk", style={'textAlign': 'center'}),
     html.H5("Created by Mahde Abusaleh", style={'textAlign': 'center', 'marginBottom': 20, 'color': 'gray'}),
 
-    # Navigation Bar
-    html.Div([
-        dcc.Link('Exposure Sources | ', href='#exposure'),
-        dcc.Link('Dose-Response Models | ', href='#models'),
-        dcc.Link('Calculator | ', href='#calculator'),
-        dcc.Link('FAQ | ', href='#faq'),
-        dcc.Link('Conclusion', href='#conclusion')
-    ], style={'textAlign': 'center', 'marginBottom': 20}),
+# Navigation Bar (Updated to use html.A() for smooth scrolling)
+html.Div([
+    html.A('Exposure Sources | ', href='#exposure', style={'cursor': 'pointer', 'textDecoration': 'none'}),
+    html.A('Dose-Response Models | ', href='#models', style={'cursor': 'pointer', 'textDecoration': 'none'}),
+    html.A('Calculator | ', href='#calculator', style={'cursor': 'pointer', 'textDecoration': 'none'}),
+    html.A('FAQ | ', href='#faq', style={'cursor': 'pointer', 'textDecoration': 'none'}),
+    html.A('Conclusion', href='#conclusion', style={'cursor': 'pointer', 'textDecoration': 'none'})
+], style={'textAlign': 'center', 'marginBottom': 20}),
+
+# JavaScript for smooth scrolling
+dcc.Markdown("""
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    });
+    </script>
+""", dangerously_allow_html=True),
 
     # Radiation Exposure Section
     html.Div(id='exposure', children=[
